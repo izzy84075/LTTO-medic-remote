@@ -1,0 +1,29 @@
+2 signatures per second will gain one health in 15 seconds.(exact)
+3 signatures per second will gain one health in 8 seconds.(roughly)
+4 signatures per second will gain one health in 5 seconds.(exact)
+5 signatures per second will gain one health in 4 seconds.(roughly)
+6 signatures per second will gain one health in 3 seconds.(exact)
+7 signatures per second will gain one health in 2 seconds.(roughly)
+
+LTTO gear has a counter that, when it reaches 15, will add 1 health. This counter is added to whenever it receives a base heal signature, and is decremented by 1 every second.
+
+All of the following numbers assume a signature takes 32ms, which I think is the maximum for the signatures we would be sending. Should be close enough.
+
+Can get 14 signatures a second with a 39ms(roughly) pause.
+Can get 12 signatures a second with a 51ms(roughly) pause.
+Can get 10 signatures a second with a 68ms(exactly) pause.
+Can get 8 signatures a second with a 93ms(exactly) pause.
+Can get 6 signatures a second with a 134ms(roughly) pause.
+Can get 4 signatures a second with a 218ms(exactly) pause.
+
+DIP switch will be 'split' in half. First half will select which teams' signatures are sent, second half will select the rate at which the signatures are sent.
+	"team" half of DIP switch
+		00 - All teams are sent, at the 8 seconds per health rate.
+		01 - T0+T1 are sent, at the rate specified by the other half of the DIP switch
+		10 - T0+T2
+		11 - T0+T3
+	"rate" half of DIP switch
+		00 - 2 signatures per team per second, 15 seconds per health.
+		01 - 3 signatures per team per second, 8 seconds per health.
+		10 - 4 signatures per team per second, 5 seconds per health.
+		11 - 6 signatures per team per second, 3 seconds per health.
